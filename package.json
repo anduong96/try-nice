@@ -1,64 +1,48 @@
 {
   "name": "try-nice",
   "description": "try/catch wrapper",
-  "version": "1.0.11",
+  "version": "1.1.0",
+  "license": "MIT",
   "author": "An Duong <an.duongx@gmail.com> ()",
-  "module": "dist/try-nice.esm.js",
   "homepage": "https://github.com/anduong96/try-nice",
+  "engineStrict": true,
   "keywords": [
     "typescript",
-    "npm"
+    "npm",
+    "try",
+    "catch"
   ],
   "bugs": {
     "url": "https://github.com/anduong96/try-nice/issues",
     "email": "an.duongx@gmail.com"
   },
-  "files": [
-    "dist",
-    "LICENSE",
-    "package.json",
-    "index.js",
-    "index.d.ts"
-  ],
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
   "contributors": [
     "An Duong <an.duongx@gmail.com> ()"
   ],
-  "dependencies": {},
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build --format cjs",
-    "test": "tsdx test",
-    "lint": "yarn eslint ./src --ext .js,.ts",
-    "prepare": "npm run build"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "tsc",
+    "prepare": "npm test && npm run build",
+    "lint": "yarn eslint ./src --ext .js,.ts"
   },
-  "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 100,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "devDependencies": {
-    "@types/jest": "^24.0.24",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.20",
     "@typescript-eslint/eslint-plugin": "^2.12.0",
     "@typescript-eslint/parser": "^2.12.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^3.1.0",
+    "eslint-plugin-typescript": "^0.14.0",
+    "jest": "^24.9.0",
     "prettier": "^1.19.1",
-    "tsdx": "^0.12.0",
-    "tslib": "^1.10.0",
-    "typescript": "^3.7.4"
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.3"
   }
 }
