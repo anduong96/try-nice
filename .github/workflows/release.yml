@@ -1,41 +1,46 @@
-name: "Bump Version"
+name: Bump Version
 
 on:
   push:
     branches:
-      - "master"
+      - master
 
 jobs:
   bump-version:
-    name: "Bump Version on master"
+    name: Bump Version on master
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Checkout source code"
-        uses: "actions/checkout@v1"
+      - name: Checkout source code
+        uses: actions/checkout@v1
         with:
           ref: ${{ github.ref }}
-      - name: "cat package.json"
+      - name: cat package.json
         run: cat ./package.json
-      - name: "Setup Node.js"
-        uses: "actions/setup-node@v1"
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
         with:
           node-version: 8.10.0
-      - name: "Automated Version Bump"
-        uses: "phips28/gh-action-bump-version@master"
+      - name: Automated Version Bump
+        uses: phips28/gh-action-bump-version@master
         with:
           tag-prefix: ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: "cat package.json"
+      - name: cat package.json
         run: cat ./package.json
+      - name: Checkout repository
+        uses: actions/checkout@master
+      - name: Set up Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.0.0
       - name: Publish if version has been updated
-        uses: pascalgn/npm-publish-action@51fdb4531e99aac1873764ef7271af448dc42ab4
+        uses: houtianze/npm-publish-action@master
         with: # All of theses inputs are optional
           tag_name: "v%s"
           tag_message: "v%s"
-          commit_pattern: "^Release (\\S+)"
+          commit_pattern: "^(?:Release|Version) (\\S+)"
         env: # More info about the environment variables in the README
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
           NPM_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }} # You need to set this in your repo settings
-
