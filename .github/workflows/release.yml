@@ -15,8 +15,6 @@ jobs:
         uses: actions/checkout@v1
         with:
           ref: ${{ github.ref }}
-      - name: cat package.json
-        run: cat ./package.json
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -27,14 +25,14 @@ jobs:
           tag-prefix: ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: cat package.json
-        run: cat ./package.json
-      - name: Checkout repository
-        uses: actions/checkout@master
+      - name: Checkout source code
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ github.ref }}
       - name: Set up Node.js
         uses: actions/setup-node@master
         with:
-          node-version: 10.0.0
+          node-version: 8.10.0
       - name: Publish if version has been updated
         uses: houtianze/npm-publish-action@master
         with: # All of theses inputs are optional
