@@ -1,7 +1,7 @@
 {
   "name": "try-nice",
   "description": "try/catch wrapper",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "An Duong <an.duongx@gmail.com> ()",
   "module": "dist/try-nice.esm.js",
   "homepage": "https://github.com/anduong96/try-nice",
