@@ -33,7 +33,7 @@
     "start": "tsdx watch",
     "build": "tsdx build --format cjs",
     "test": "tsdx test",
-    "lint": "tsdx lint",
+    "lint": "yarn eslint ./src --ext .js,.ts",
     "prepare": "npm run build"
   },
   "peerDependencies": {},
@@ -50,7 +50,13 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.24",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "husky": "^3.1.0",
+    "prettier": "^1.19.1",
     "tsdx": "^0.12.0",
     "tslib": "^1.10.0",
     "typescript": "^3.7.4"
