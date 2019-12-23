@@ -34,11 +34,11 @@ jobs:
         with:
           node-version: 8.10.0
       - name: Publish if version has been updated
-        uses: houtianze/npm-publish-action@master
+        uses: pascalgn/npm-publish-action@51fdb4531e99aac1873764ef7271af448dc42ab4
         with: # All of theses inputs are optional
           tag_name: "v%s"
           tag_message: "v%s"
-          commit_pattern: "^(?:Release|Version) (\\S+)"
+          commit_pattern: "^ci: version bump to"
         env: # More info about the environment variables in the README
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
           NPM_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }} # You need to set this in your repo settings
