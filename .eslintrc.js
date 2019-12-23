@@ -3,10 +3,22 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: [
     '@typescript-eslint',
+    'typescript'
   ],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module'
+  },
+  settings: {
+    'import/resolver': {
+      'node': true,
+      'typescript': true
+    },
+    'import/parsers': {
+      'typescript-eslint-parser': ['.ts', '.tsx', {
+        'comment': true
+      }]
+    }
   },
   extends: [
     'eslint:recommended',
@@ -32,5 +44,3 @@ module.exports = {
     }],
   }
 }
-
-

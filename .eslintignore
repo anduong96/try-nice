@@ -1,9 +1,3 @@
-test
-dist
-documentation
-node_modules
-certs
+.github
 .vscode
-config
-production.bootstrap.js
-webpack.config.js
+node_modules

@@ -1,4 +1,4 @@
-import { tryNice, tryNiceAsync } from '../src'
+import { tryNice, tryNiceAsync } from './index'
 
 describe('Try/catch test', () => {
   it('Should not have error', () => {
