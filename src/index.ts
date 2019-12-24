@@ -1,20 +1,16 @@
 /**
- * Clean try/catch wrapperc
+ * Clean try/catch wrapper
  *
  * @export
  * @param {Function} execution
  * @returns {Result}
  */
-export function tryNice(execution: Function): any[] {
-  const result = []
-
+export function tryNice(execution: Function, ...args: any[]): any[] {
   try {
-    result[0] = execution()
+    return [execution.apply(null, args)]
   } catch (error) {
-    result[1] = error
+    return [undefined, error]
   }
-
-  return result
 }
 
 /**
@@ -24,14 +20,10 @@ export function tryNice(execution: Function): any[] {
  * @param {Function} execution async function
  * @returns {Promise<Result>}
  */
-export async function tryNiceAsync(execution: Function): Promise<any[]> {
-  const result = []
-
+export async function tryNiceAsync(execution: Function, ...args: any[]): Promise<any[]> {
   try {
-    result[0] = await execution()
+    return [await execution.apply(null, args)]
   } catch (error) {
-    result[1] = error
+    return [undefined, error]
   }
-
-  return result
 }
