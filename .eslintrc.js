@@ -42,5 +42,6 @@ module.exports = {
         requireLast: false
       }
     }],
+    'prefer-spread': 'off'
   }
 }
