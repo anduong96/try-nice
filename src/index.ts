@@ -7,7 +7,7 @@
  */
 export function tryNice(execution: Function, ...args: any[]): any[] {
   try {
-    return [execution.apply(null, args)]
+    return [execution(...args)]
   } catch (error) {
     return [undefined, error]
   }
@@ -22,7 +22,7 @@ export function tryNice(execution: Function, ...args: any[]): any[] {
  */
 export async function tryNiceAsync(execution: Function, ...args: any[]): Promise<any[]> {
   try {
-    return [await execution.apply(null, args)]
+    return [await execution(...args)]
   } catch (error) {
     return [undefined, error]
   }
