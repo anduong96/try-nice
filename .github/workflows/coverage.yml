@@ -4,10 +4,19 @@ on:
 
 jobs:
   codecov:
-    name: codecov
-    runs-on: unbuntu-latest
+    name: Codecov
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@master
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v1.0.5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          yml: ./codecov.yml
+          fail_ci_if_error: true
+
