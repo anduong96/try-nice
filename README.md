@@ -56,6 +56,17 @@ const getTwo = async () => 2
 const [asyncResult] = await tryNiceAsync(getTwo)
 // asyncResult === 2
 
+const getValue = async (value) => value
+const [parameterizedResult] = await tryNiceAsync(getValue, 3)
+// parameterizedResult === 3
+
+const getError = async () => {
+  throw new Error()
+}
+
+const [emptyResult, error] = await tryNiceAsync(getError)
+// emptyResult === undefined
+// error instanceof Error
 ```
 
 
