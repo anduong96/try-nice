@@ -7,11 +7,7 @@ jobs:
     name: codecov
     runs-on: unbuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: install node v12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
+      - uses: actions/checkout@master
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
