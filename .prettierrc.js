@@ -1,7 +1,7 @@
-
-// see https://prettier.io/docs/en/options.html
+/**
+ * @see https://prettier.io/docs/en/options.html
+ */
 module.exports = {
-  printWidth: 100,
   tabWidth: 2,
   semi: false,
   singleQuote: true,
@@ -10,5 +10,7 @@ module.exports = {
   trailingComma: 'none',
   quoteProps: 'as-needed',
   arrowParens: 'always',
-  proseWrap: 'preserve'
+  jsxSingleQuote: true,
+  jsxBracketSameLine: false,
+  endOfLine: 'auto'
 }
