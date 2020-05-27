@@ -1,7 +1,7 @@
 {
   "name": "try-nice",
   "description": "try/catch wrapper",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "MIT",
   "author": "An Duong <an.duongx@gmail.com>",
   "homepage": "https://github.com/anduong96/try-nice",
