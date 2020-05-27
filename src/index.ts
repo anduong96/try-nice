@@ -5,7 +5,7 @@
  * @param {Function} execution
  * @returns {Result}
  */
-export function tryNice<T = any, E = any>(
+export function tryNice<T = any, E = Error>(
   execution: (...args: any[]) => T,
   ...args: any[]
 ): [T?, E?] {
@@ -23,7 +23,7 @@ export function tryNice<T = any, E = any>(
  * @param {Function} execution async function
  * @returns {Promise<Result>}
  */
-export async function tryNiceAsync<T = any, E = any>(
+export async function tryNiceAsync<T = any, E = Error>(
   execution: (...args: any[]) => Promise<T>,
   ...args: any[]
 ): Promise<[T?, E?]> {
