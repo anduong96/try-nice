@@ -23,7 +23,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "tsc",
-    "prepare": "npm run test && npm run build",
+    "prepare": "npm run build",
     "lint": "yarn eslint ./src --ext .js,.ts"
   },
   "main": "./lib/index.js",
