@@ -1,7 +1,6 @@
 # try-nice
 
 [![build status](https://img.shields.io/travis/com/anduong96/try-nice.svg)](https://travis-ci.com/anduong96/try-nice)
-[![code coverage](https://img.shields.io/codecov/c/github/anduong96/try-nice.svg)](https://codecov.io/gh/anduong96/try-nice)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![license](https://img.shields.io/github/license/anduong96/try-nice.svg)](LICENSE)
 [![npm downloads](https://img.shields.io/npm/dt/try-nice.svg)](https://npm.im/try-nice)
@@ -65,6 +64,29 @@ const getError = async () => {
 }
 
 const [emptyResult, error] = await tryNiceAsync(getError)
+// emptyResult === undefined
+// error instanceof Error
+```
+
+## Usage Typescript
+```js
+import { tryNice, tryNiceAsync } from 'try-nice'
+const [result] = tryNice(() => 1)
+//result === 1
+
+const getTwo = async (): number => 2
+const [asyncResult] = await tryNiceAsync<number>(getTwo)
+// asyncResult === 2
+
+const getValue = async (value: string): string  => value
+const [parameterizedResult] = await tryNiceAsync<string>(getValue, 3)
+// parameterizedResult === 3
+
+const getError = async (): void => {
+  throw new Error()
+}
+
+const [emptyResult, error] = await tryNiceAsync<any, Error>(getError)
 // emptyResult === undefined
 // error instanceof Error
 ```
