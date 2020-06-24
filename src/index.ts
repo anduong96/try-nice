@@ -10,7 +10,7 @@ export function tryNice<T = any, E = Error>(
   ...args: any[]
 ): [T?, E?] {
   try {
-    return [execution(...args)]
+    return [execution.apply(null, args)]
   } catch (error) {
     return [undefined, error as E]
   }
@@ -28,7 +28,7 @@ export async function tryNiceAsync<T = any, E = Error>(
   ...args: any[]
 ): Promise<[T?, E?]> {
   try {
-    return [await execution(...args)]
+    return [await execution.apply(null, args)]
   } catch (error) {
     return [undefined, error as E]
   }
