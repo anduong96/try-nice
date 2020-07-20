@@ -1,7 +1,7 @@
 {
   "name": "try-nice",
   "description": "try/catch wrapper",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "license": "MIT",
   "author": "An Duong <an.duongx@gmail.com>",
   "homepage": "https://github.com/anduong96/try-nice",
@@ -17,7 +17,8 @@
     "email": "an.duongx@gmail.com"
   },
   "contributors": [
-    "An Duong <an.duongx@gmail.com> ()"
+    "An Duong <an.duongx@gmail.com> ()",
+    "Adam Stover <nehtaro@gmail.com> ()"
   ],
   "scripts": {
     "test": "jest",
