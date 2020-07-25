@@ -1,23 +1,16 @@
-type Argument<T> = T extends (arg: infer U) => any ? U : any
-
 /**
  * Clean try/catch wrapper
  *
  * @export
- * @template V
- * @template E
- * @template F
- * @param {F} execution
- * @param {...Array<Argument<F>>} args
- * @returns {[V?, E?]}
+ * @param {Function} execution
+ * @returns {Result}
  */
-export function tryNice<
-  V = any,
-  E = Error,
-  F extends (...arg: Array<Argument<F>>) => V | undefined = any
->(fn: F, ...args: Array<Argument<F>>): [V?, E?] {
+export function tryNice<T = any, E = Error>(
+  execution: (...args: any[]) => T,
+  ...args: any[]
+): [T?, E?] {
   try {
-    return [fn.apply(null, args)]
+    return [execution.apply(null, args)]
   } catch (error) {
     return [undefined, error as E]
   }
@@ -27,20 +20,15 @@ export function tryNice<
  * Clean async try/catch wrapper
  *
  * @export
- * @template V
- * @template E
- * @template F
- * @param {F} fn
- * @param {...Array<Argument<F>>} args
- * @returns {Promise<[V?, E?]>}
+ * @param {Function} execution async function
+ * @returns {Promise<Result>}
  */
-export async function tryNiceAsync<
-  V = any,
-  E = Error,
-  F extends (...arg: Array<Argument<F>>) => V | undefined = any
->(fn: F, ...args: Array<Argument<F>>): Promise<[V?, E?]> {
+export async function tryNiceAsync<T = any, E = Error>(
+  execution: (...args: any[]) => Promise<T>,
+  ...args: any[]
+): Promise<[T?, E?]> {
   try {
-    return [await fn.apply(null, args)]
+    return [await execution.apply(null, args)]
   } catch (error) {
     return [undefined, error as E]
   }
