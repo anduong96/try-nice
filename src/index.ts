@@ -1,3 +1,9 @@
+type Await<T> = T extends {
+  then(onfulfilled?: (value: infer U) => unknown): unknown
+}
+  ? U
+  : T
+
 /**
  * Clean try/catch wrapper
  *
@@ -5,12 +11,12 @@
  * @param {Function} execution
  * @returns {Result}
  */
-export function tryNice<T = any, E = Error>(
-  execution: (...args: any[]) => T,
-  ...args: any[]
-): [T?, E?] {
+export function tryNice<
+  E extends Error,
+  F extends (...args: any[]) => any = any
+>(fn: F, ...args: Parameters<F>): [ReturnType<F>?, E?] {
   try {
-    return [execution.apply(null, args)]
+    return [fn.apply(null, args)]
   } catch (error) {
     return [undefined, error as E]
   }
@@ -23,12 +29,12 @@ export function tryNice<T = any, E = Error>(
  * @param {Function} execution async function
  * @returns {Promise<Result>}
  */
-export async function tryNiceAsync<T = any, E = Error>(
-  execution: (...args: any[]) => Promise<T>,
-  ...args: any[]
-): Promise<[T?, E?]> {
+export async function tryNiceAsync<
+  E extends Error,
+  F extends (...args: any[]) => any = any
+>(fn: F, ...args: Parameters<F>): Promise<[Await<ReturnType<F>>?, E?]> {
   try {
-    return [await execution.apply(null, args)]
+    return [await fn.apply(null, args), undefined]
   } catch (error) {
     return [undefined, error as E]
   }

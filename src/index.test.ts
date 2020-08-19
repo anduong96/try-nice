@@ -2,8 +2,12 @@ import { tryNice, tryNiceAsync } from './index'
 
 describe('Try/catch test', () => {
   it('Should not have error', () => {
-    const [result, error] = tryNice(() => 1)
-    expect(result).toEqual(1)
+    function test(first: number, second: number) {
+      return first + second
+    }
+
+    const [result, error] = tryNice(test, 1, 2)
+    expect(result).toEqual(3)
     expect(error).toEqual(undefined)
   })
 
@@ -19,15 +23,18 @@ describe('Try/catch test', () => {
 
 describe('Try/catch async test', () => {
   it('Should not have error', async () => {
-    const [result, error] = await tryNiceAsync<number>(() => Promise.resolve(1))
-    expect(result).toEqual(1)
+    const bypass = async (num: number) => num
+    const expectedResult = 1
+    const [result, error] = await tryNiceAsync(bypass, expectedResult)
+    expect(result).toEqual(expectedResult)
     expect(error).toEqual(undefined)
   })
 
   it('Should have error', async () => {
-    const [result, error] = await tryNiceAsync<undefined, Error>(() =>
+    const [result, error] = await tryNiceAsync(() =>
       Promise.reject(new Error())
     )
+
     expect(result).toEqual(undefined)
     expect(error).toBeInstanceOf(Error)
   })

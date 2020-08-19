@@ -11,7 +11,8 @@
     "lib": ["ESNext"],
     "rootDir": "./src",
     "allowJs": false,
-    "checkJs": false
+    "checkJs": false,
+    "noErrorTruncation": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "src/**/*.test.ts", "jest.config.js"]
