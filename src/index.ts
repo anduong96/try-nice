@@ -5,37 +5,42 @@ type Await<T> = T extends {
   : T
 
 /**
- * Clean try/catch wrapper
- *
- * @export
- * @param {Function} execution
- * @returns {Result}
+ * Check if value is a promise
  */
-export function tryNice<
-  E extends Error,
-  F extends (...args: any[]) => any = any
->(fn: F, ...args: Parameters<F>): [ReturnType<F>?, E?] {
-  try {
-    return [fn.apply(null, args)]
-  } catch (error) {
-    return [undefined, error as E]
-  }
+function isPromise(value: any): value is Promise<any> {
+  return Boolean(value && typeof value.then === 'function')
 }
 
 /**
- * Clean async try/catch wrapper
+ * Clean try/catch wrapper
  *
  * @export
- * @param {Function} execution async function
- * @returns {Promise<Result>}
+ * @template E
+ * @template F
+ * @param {F} fn
+ * @param {...Parameters<F>} args
+ * @returns {F extends Promise<any>
+ *   ? Promise<[Await<ReturnType<F>>?, any?]>
+ *   : [ReturnType<F>?, E?]}
  */
-export async function tryNiceAsync<
-  E extends Error,
-  F extends (...args: any[]) => any = any
->(fn: F, ...args: Parameters<F>): Promise<[Await<ReturnType<F>>?, E?]> {
+export function tryNice<E = any, F extends (...args: any[]) => any = any>(
+  fn: F,
+  ...args: Parameters<F>
+): F extends Promise<any>
+  ? Promise<[Await<ReturnType<F>>?, any?]>
+  : [ReturnType<F>?, E?] {
   try {
-    return [await fn.apply(null, args), undefined]
+    const result = fn.apply(null, args)
+    if (!isPromise(result)) {
+      return [result, undefined] as any
+    }
+
+    return new Promise((resolve, reject) =>
+      result
+        .then((value) => resolve([value, undefined]))
+        .catch((promiseError) => reject([undefined, promiseError]))
+    ) as any
   } catch (error) {
-    return [undefined, error as E]
+    return [undefined, error as E] as any
   }
 }

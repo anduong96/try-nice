@@ -1,4 +1,4 @@
-import { tryNice, tryNiceAsync } from './index'
+import { tryNice } from './index'
 
 describe('Try/catch test', () => {
   it('Should not have error', () => {
@@ -25,17 +25,8 @@ describe('Try/catch async test', () => {
   it('Should not have error', async () => {
     const bypass = async (num: number) => num
     const expectedResult = 1
-    const [result, error] = await tryNiceAsync(bypass, expectedResult)
+    const [result, error] = await tryNice(bypass, expectedResult)
     expect(result).toEqual(expectedResult)
     expect(error).toEqual(undefined)
-  })
-
-  it('Should have error', async () => {
-    const [result, error] = await tryNiceAsync(() =>
-      Promise.reject(new Error())
-    )
-
-    expect(result).toEqual(undefined)
-    expect(error).toBeInstanceOf(Error)
   })
 })

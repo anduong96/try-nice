@@ -47,46 +47,46 @@ var [result] = tryNice(getOne)
 ## Usage ES6
 
 ```js
-import { tryNice, tryNiceAsync } from 'try-nice'
+import { tryNice } from 'try-nice'
 const [result] = tryNice(() => 1)
 //result === 1
 
 const getTwo = async () => 2
-const [asyncResult] = await tryNiceAsync(getTwo)
+const [asyncResult] = await tryNice(getTwo)
 // asyncResult === 2
 
 const getValue = async (value) => value
-const [parameterizedResult] = await tryNiceAsync(getValue, 3)
+const [parameterizedResult] = await tryNice(getValue, 3)
 // parameterizedResult === 3
 
 const getError = async () => {
   throw new Error()
 }
 
-const [emptyResult, error] = await tryNiceAsync(getError)
+const [emptyResult, error] = await tryNice(getError)
 // emptyResult === undefined
 // error instanceof Error
 ```
 
 ## Usage Typescript
 ```js
-import { tryNice, tryNiceAsync } from 'try-nice'
+import { tryNice } from 'try-nice'
 const [result] = tryNice(() => 1)
 //result === 1
 
 const getTwo = async (): number => 2
-const [asyncResult] = await tryNiceAsync<number>(getTwo)
+const [asyncResult] = await tryNice(getTwo)
 // asyncResult === 2
 
 const getValue = async (value: string): string  => value
-const [parameterizedResult] = await tryNiceAsync<string>(getValue, 3)
+const [parameterizedResult] = await tryNice(getValue, 3)
 // parameterizedResult === 3
 
 const getError = async (): void => {
   throw new Error()
 }
 
-const [emptyResult, error] = await tryNiceAsync<any, Error>(getError)
+const [emptyResult, error] = await tryNice(getError)
 // emptyResult === undefined
 // error instanceof Error
 ```
