@@ -4,11 +4,19 @@ type Await<T> = T extends {
   ? U
   : T
 
+type ConditionalReturn<F extends (...args: any[]) => any, E> = ReturnType<
+  F
+> extends never
+  ? [never, E?]
+  : ReturnType<F> extends Promise<any>
+  ? Promise<[Await<ReturnType<F>>?, E?]>
+  : [ReturnType<F>?, E?]
+
 /**
  * Check if value is a promise
  */
 function isPromise(value: any): value is Promise<any> {
-  return Boolean(value && typeof value.then === 'function')
+  return value instanceof Promise
 }
 
 /**
@@ -19,16 +27,12 @@ function isPromise(value: any): value is Promise<any> {
  * @template F
  * @param {F} fn
  * @param {...Parameters<F>} args
- * @returns {F extends Promise<any>
- *   ? Promise<[Await<ReturnType<F>>?, any?]>
- *   : [ReturnType<F>?, E?]}
+ * @returns {ConditionalReturn<F, E>}
  */
 export function tryNice<E = any, F extends (...args: any[]) => any = any>(
   fn: F,
   ...args: Parameters<F>
-): F extends Promise<any>
-  ? Promise<[Await<ReturnType<F>>?, any?]>
-  : [ReturnType<F>?, E?] {
+): ConditionalReturn<F, E> {
   try {
     const result = fn.apply(null, args)
     if (!isPromise(result)) {
