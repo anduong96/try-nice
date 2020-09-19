@@ -42,7 +42,7 @@ export function tryNice<E = any, F extends (...args: any[]) => any = any>(
     return new Promise((resolve, reject) =>
       result
         .then((value) => resolve([value, undefined]))
-        .catch((promiseError) => reject([undefined, promiseError]))
+        .catch((promiseError) => resolve([undefined, promiseError]))
     ) as any
   } catch (error) {
     return [undefined, error as E] as any

@@ -29,4 +29,13 @@ describe('Try/catch async test', () => {
     expect(result).toEqual(expectedResult)
     expect(error).toEqual(undefined)
   })
+
+  it('Should have error', async () => {
+    const [result, error] = await tryNice(() => {
+      throw new Error()
+    })
+
+    expect(result).toEqual(undefined)
+    expect(error).toBeInstanceOf(Error)
+  })
 })
