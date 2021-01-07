@@ -4,9 +4,10 @@ type Await<T> = T extends {
   ? U
   : T
 
-type ConditionalReturn<F extends (...args: any[]) => any, E> = ReturnType<
-  F
-> extends never
+type ConditionalReturn<
+  F extends (...args: any[]) => any,
+  E
+> = ReturnType<F> extends never
   ? [never, E?]
   : ReturnType<F> extends Promise<any>
   ? Promise<[Await<ReturnType<F>>?, E?]>
@@ -48,5 +49,3 @@ export function tryNice<E = any, F extends (...args: any[]) => any = any>(
     return [undefined, error as E] as any
   }
 }
-
-class B {}
