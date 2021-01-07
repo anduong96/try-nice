@@ -39,7 +39,7 @@ export function tryNice<E = any, F extends (...args: any[]) => any = any>(
       return [result, undefined] as any
     }
 
-    return new Promise((resolve, reject) =>
+    return new Promise((resolve) =>
       result
         .then((value) => resolve([value, undefined]))
         .catch((promiseError) => resolve([undefined, promiseError]))
@@ -48,3 +48,5 @@ export function tryNice<E = any, F extends (...args: any[]) => any = any>(
     return [undefined, error as E] as any
   }
 }
+
+class B {}
